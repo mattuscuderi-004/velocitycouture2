@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,13 +28,7 @@
             line-height: 1.6;
             scroll-behavior: smooth;
         }
-     
-        }
-        
-   
-        }
-        
-        @keyframes scrollMiniBanner {
+        @keyframes scrollText {
             0% {
                 transform: translateX(100%);
             }
@@ -41,7 +36,6 @@
                 transform: translateX(-100%);
             }
         }
-        
         /* Barra de descuento continua */
         .discount-bar {
             background-color: var(--azul-maro);
@@ -57,14 +51,6 @@
             animation: scrollText 20s linear infinite;
             font-size: 14px;
             font-weight: 500;
-        }
-        @keyframes scrollText {
-            0% {
-                transform: translateX(100%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
         }
         /* Header */
         header {
@@ -830,10 +816,9 @@
             flex-direction: column;
             align-items: center;
             width: 82px;
-flex-wrap: nowrap;
-align-content: center;
-justify-content: center;
-
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;
         }
         @media (min-width: 768px) {
             .image-thumbnails {
@@ -1493,13 +1478,304 @@ justify-content: center;
                 height: 400px;
             }
         }
+
+        /* Checkout Page (Full Screen) */
+        .checkout-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--blanco);
+            z-index: 1100;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .checkout-page.active {
+            display: block;
+        }
+        .checkout-header {
+            background-color: var(--azul-maro);
+            color: var(--blanco);
+            padding: 20px 40px;
+            text-align: center;
+        }
+        .checkout-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .checkout-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .checkout-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .checkout-steps {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--gris-claro);
+            padding-bottom: 15px;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+            color: var(--gris-oscuro);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .step::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: var(--gris-claro);
+            border-radius: 50%;
+        }
+        .step.active {
+            color: var(--azul-maro);
+            font-weight: 600;
+        }
+        .step.active::after {
+            background-color: var(--azul-maro);
+            width: 12px;
+            height: 12px;
+        }
+        .step.completed::after {
+            background-color: #27ae60;
+        }
+        .step + .step::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--gris-claro);
+            z-index: -1;
+        }
+        .step-form {
+            display: none;
+        }
+        .step-form.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--azul-maro);
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gris-claro);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--azul-maro);
+            outline: none;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .shipping-option {
+            padding: 12px;
+            border: 1px solid var(--gris-claro);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .shipping-option.selected {
+            border-color: var(--azul-maro);
+            background-color: rgba(10, 25, 47, 0.05);
+        }
+        .payment-method {
+            padding: 12px;
+            border: 1px solid var(--gris-claro);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .payment-method.selected {
+            border-color: var(--azul-maro);
+            background-color: rgba(10, 25, 47, 0.05);
+        }
+        .cart-summary {
+            background-color: var(--gris);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .summary-total {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--azul-maro);
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--gris-claro);
+        }
+        .checkout-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .checkout-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-prev {
+            background-color: var(--gris);
+            color: var(--azul-maro);
+        }
+        .btn-next, .btn-submit {
+            background-color: var(--azul-maro);
+            color: var(--blanco);
+        }
+        .btn-next:hover, .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Thank You Page */
+        .thank-you-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1200;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .thank-you-page.active {
+            display: flex;
+        }
+        .thank-you-content {
+            background-color: var(--blanco);
+            border-radius: 15px;
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .thank-you-icon {
+            font-size: 60px;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+        .thank-you-title {
+            font-size: 28px;
+            color: var(--azul-maro);
+            margin-bottom: 15px;
+        }
+        .thank-you-message {
+            font-size: 16px;
+            color: var(--gris-oscuro);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .rating-section {
+            margin-bottom: 30px;
+        }
+        .rating-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--azul-maro);
+        }
+        .rating-stars {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            font-size: 30px;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+        .rating-stars .star {
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .rating-stars .star:hover,
+        .rating-stars .star.selected,
+        .rating-stars .star:hover ~ .star {
+            color: #f39c12;
+        }
+        .rating-text {
+            font-size: 14px;
+            color: var(--gris-oscuro);
+        }
+        .btn-close-thank-you {
+            background-color: var(--azul-maro);
+            color: var(--blanco);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-close-thank-you:hover {
+            background-color: var(--negro);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
-   
-        </div>
-    </div>
-
     <!-- Barra de descuento continua -->
     <div class="discount-bar">
         <div class="discount-text">
@@ -1561,7 +1837,9 @@ justify-content: center;
         <!-- Grid de productos -->
         <div class="products-grid">
             <!-- Producto 1 -->
-            <div class="product-card" data-category="remeras ultimo-drop">
+            <div class="product-card" 
+                 data-category="remeras ultimo-drop"
+                 data-images="images/reme1.png,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+Velocity+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+Velocity+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+Velocity+Detalle">
                 <div class="product-image">
                     <img src="images/reme1.png" alt="Remera Velocity">
                 </div>
@@ -1573,7 +1851,9 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 2 -->
-            <div class="product-card" data-category="remeras stock">
+            <div class="product-card" 
+                 data-category="remeras stock"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+2,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+2+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+2+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+2+Detalle">
                 <div class="product-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+2" alt="Remera Velocity">
                 </div>
@@ -1585,7 +1865,9 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 3 -->
-            <div class="product-card" data-category="gorras ultimo-drop">
+            <div class="product-card" 
+                 data-category="gorras ultimo-drop"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+1,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+1+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+1+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+1+Detalle">
                 <div class="product-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+1" alt="Gorra Velocity">
                 </div>
@@ -1597,7 +1879,9 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 4 -->
-            <div class="product-card" data-category="gorras stock">
+            <div class="product-card" 
+                 data-category="gorras stock"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+2,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+2+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+2+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+2+Detalle">
                 <div class="product-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+2" alt="Gorra Velocity">
                 </div>
@@ -1609,7 +1893,9 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 5 -->
-            <div class="product-card" data-category="remeras ultimo-drop">
+            <div class="product-card" 
+                 data-category="remeras ultimo-drop"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+3,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+3+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+3+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+3+Detalle">
                 <div class="product-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+3" alt="Remera Velocity">
                 </div>
@@ -1621,7 +1907,9 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 6 -->
-            <div class="product-card" data-category="remeras stock">
+            <div class="product-card" 
+                 data-category="remeras stock"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+4,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+4+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+4+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+4+Detalle">
                 <div class="product-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+4" alt="Remera Velocity">
                 </div>
@@ -1633,7 +1921,9 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 7 -->
-            <div class="product-card" data-category="gorras ultimo-drop">
+            <div class="product-card" 
+                 data-category="gorras ultimo-drop"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+3,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+3+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+3+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+3+Detalle">
                 <div class="product-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+3" alt="Gorra Velocity">
                 </div>
@@ -1645,7 +1935,9 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 8 -->
-            <div class="product-card" data-category="gorras stock">
+            <div class="product-card" 
+                 data-category="gorras stock"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+4,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+4+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+4+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+4+Detalle">
                 <div class="product-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+4" alt="Gorra Velocity">
                 </div>
@@ -1663,7 +1955,8 @@ justify-content: center;
         <h2 class="section-title">Colecciones Destacadas</h2>
         <div class="featured-grid">
             <!-- Producto 1 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+1,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+1+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+1+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+1+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+1" alt="Remera Velocity">
                 </div>
@@ -1673,7 +1966,8 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 2 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+2,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+2+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+2+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+2+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+2" alt="Remera Velocity">
                 </div>
@@ -1683,7 +1977,8 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 3 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+1,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+1+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+1+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+1+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+1" alt="Gorra Velocity">
                 </div>
@@ -1693,7 +1988,8 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 4 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+2,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+2+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+2+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+2+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+2" alt="Gorra Velocity">
                 </div>
@@ -1703,7 +1999,8 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 5 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+3,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+3+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+3+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+3+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+3" alt="Remera Velocity">
                 </div>
@@ -1713,7 +2010,8 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 6 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+4,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+4+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+4+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+4+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+4" alt="Remera Velocity">
                 </div>
@@ -1723,7 +2021,8 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 7 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+3,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+3+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+3+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+3+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+3" alt="Gorra Velocity">
                 </div>
@@ -1733,7 +2032,8 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 8 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+4,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+4+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+4+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+4+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+4" alt="Gorra Velocity">
                 </div>
@@ -1743,7 +2043,8 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 9 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+5,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+5+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+5+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+5+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+5" alt="Remera Velocity">
                 </div>
@@ -1753,7 +2054,8 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 10 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+6,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+6+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+6+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+6+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=Remera+6" alt="Remera Velocity">
                 </div>
@@ -1763,7 +2065,8 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 11 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+5,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+5+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+5+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+5+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+5" alt="Gorra Velocity">
                 </div>
@@ -1773,7 +2076,8 @@ justify-content: center;
                 </div>
             </div>
             <!-- Producto 12 -->
-            <div class="featured-card">
+            <div class="featured-card"
+                 data-images="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+6,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+6+Detras,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+6+Modelo,https://placehold.co/600x800/e0e0e0/0a192f?text=gorra+6+Detalle">
                 <div class="featured-image">
                     <img src="https://placehold.co/300x400/e0e0e0/0a192f?text=gorra+6" alt="Gorra Velocity">
                 </div>
@@ -1821,21 +2125,10 @@ justify-content: center;
         <div class="modal-content">
             <div class="modal-image-container">
                 <div class="image-thumbnails">
-                    <div class="thumbnail active">
-                        <img src="images/reme1.png" alt="Remera Velocity">
-                    </div>
-                    <div class="thumbnail">
-                        <img src="https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+Velocity+Detras" alt="Remera Velocity Detrás">
-                    </div>
-                    <div class="thumbnail">
-                        <img src="https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+Velocity+Modelo" alt="Remera Velocity Modelo">
-                    </div>
-                    <div class="thumbnail">
-                        <img src="https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+Velocity+Detalle" alt="Remera Velocity Detalle">
-                    </div>
+                    <!-- Las miniaturas se generan dinámicamente -->
                 </div>
                 <div class="modal-image">
-                    <img src="https://placehold.co/600x800/e0e0e0/0a192f?text=Remera+Velocity" alt="Producto Velocity">
+                    <img src="" alt="Producto Velocity">
                     <div class="image-zoom"></div>
                 </div>
             </div>
@@ -1906,6 +2199,158 @@ justify-content: center;
         </div>
     </div>
     <div class="cart-overlay"></div>
+
+    <!-- Checkout Page (Full Screen) -->
+    <div class="checkout-page">
+        <div class="checkout-header">
+            <h1>Finalizar Compra</h1>
+            <p>Revisa tu pedido, completa tus datos y elige tu forma de pago</p>
+        </div>
+        <div class="checkout-container">
+            <div class="checkout-steps">
+                <div class="step active" data-step="1">Resumen</div>
+                <div class="step" data-step="2">Datos</div>
+                <div class="step" data-step="3">Pago</div>
+            </div>
+
+            <!-- Paso 1: Resumen del carrito -->
+            <div class="step-form active" id="step-1">
+                <h3>Revisa tu pedido</h3>
+                <div id="checkout-cart-items">
+                    <!-- Items dinámicos -->
+                </div>
+                <div class="cart-summary">
+                    <div class="summary-item">
+                        <span>Subtotal:</span>
+                        <span id="checkout-subtotal">$0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Envío:</span>
+                        <span id="checkout-shipping">$0</span>
+                    </div>
+                    <div class="summary-item" id="discount-row" style="display: none;">
+                        <span>Descuento (10% Transferencia):</span>
+                        <span id="checkout-discount">-$0</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total:</span>
+                        <span id="checkout-total">$0</span>
+                    </div>
+                </div>
+                <div class="checkout-actions">
+                    <button class="checkout-btn btn-next" id="goto-step-2">Continuar</button>
+                </div>
+            </div>
+
+            <!-- Paso 2: Datos personales -->
+            <div class="step-form" id="step-2">
+                <h3>Datos de contacto y envío</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Nombre completo</label>
+                        <input type="text" id="name" required>
+                        <div class="error" id="name-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                        <div class="error" id="email-error"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" required>
+                    <div class="error" id="phone-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Dirección de envío</label>
+                    <input type="text" id="address" required>
+                    <div class="error" id="address-error"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">Ciudad</label>
+                        <input type="text" id="city" required>
+                        <div class="error" id="city-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="zip">Código Postal</label>
+                        <input type="text" id="zip" required>
+                        <div class="error" id="zip-error"></div>
+                    </div>
+                </div>
+                <div class="checkout-actions">
+                    <button class="checkout-btn btn-prev" id="back-to-step-1">Volver</button>
+                    <button class="checkout-btn btn-next" id="goto-step-3">Continuar</button>
+                </div>
+            </div>
+
+            <!-- Paso 3: Método de pago -->
+            <div class="step-form" id="step-3">
+                <h3>Método de pago</h3>
+                <div class="payment-method" data-method="transferencia">
+                    <strong>Transferencia bancaria</strong><br>
+                    <small>10% de descuento en productos (no en envío)</small>
+                </div>
+                <div class="payment-method" data-method="mercado-pago">
+                    <strong>Mercado Pago</strong><br>
+                    <small>Hasta 12 cuotas sin interés</small>
+                </div>
+                <div class="payment-method" data-method="tarjeta">
+                    <strong>Tarjeta de crédito</strong><br>
+                    <small>Hasta 6 cuotas</small>
+                </div>
+                <div class="payment-method" data-method="efectivo">
+                    <strong>Efectivo</strong><br>
+                    <small>Pago en local</small>
+                </div>
+
+                <div class="cart-summary">
+                    <div class="summary-item">
+                        <span>Subtotal:</span>
+                        <span id="final-subtotal">$0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Envío:</span>
+                        <span id="final-shipping">$0</span>
+                    </div>
+                    <div class="summary-item" id="final-discount-row" style="display: none;">
+                        <span>Descuento:</span>
+                        <span id="final-discount">-$0</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total a pagar:</span>
+                        <span id="final-total">$0</span>
+                    </div>
+                </div>
+                <button class="checkout-btn btn-submit" id="finish-purchase">FINALIZAR COMPRA</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thank You Page -->
+    <div class="thank-you-page">
+        <div class="thank-you-content">
+            <div class="thank-you-icon">🎉</div>
+            <h2 class="thank-you-title">¡Gracias por tu compra!</h2>
+            <p class="thank-you-message">Tu pedido ha sido confirmado. Recibirás un correo con los detalles de seguimiento. ¡Esperamos que disfrutes tu nueva ropa Velocity!</p>
+            
+            <div class="rating-section">
+                <div class="rating-label">Califica tu experiencia</div>
+                <div class="rating-stars" id="rating-stars">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+                <div class="rating-text" id="rating-text">Seleccioná una calificación</div>
+            </div>
+            
+            <button class="btn-close-thank-you" id="close-thank-you">Volver a Velocity</button>
+        </div>
+    </div>
+
     <script>
         // Animación de scroll para elementos
         const observer = new IntersectionObserver((entries) => {
@@ -1989,42 +2434,73 @@ justify-content: center;
                 }
             });
         });
-        // Modal de producto
+        // Modal de producto - Carga dinámica de imágenes por producto
         let currentProduct = null;
+
         document.querySelectorAll('.product-card, .featured-card').forEach(card => {
             card.addEventListener('click', (e) => {
-                if (!e.target.classList.contains('add-to-cart')) {
-                    // Obtener información del producto
-                    const image = card.querySelector('img').src;
-                    const name = card.querySelector('.product-name, .featured-name').textContent;
-                    const price = card.querySelector('.product-price, .featured-price').textContent;
-                    const category = card.querySelector('.product-category') ? card.querySelector('.product-category').textContent : 'Accesorio';
-                    currentProduct = {
-                        image: image,
-                        name: name,
-                        price: price,
-                        category: category
-                    };
-                    // Actualizar modal
-                    document.querySelector('.modal-image img').src = currentProduct.image;
-                    document.querySelector('.modal-title').textContent = currentProduct.name;
-                    document.querySelector('.modal-price').textContent = currentProduct.price;
-                    // Resetear thumbnails
-                    document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
-                        if (index === 0) {
-                            thumb.classList.add('active');
-                        } else {
-                            thumb.classList.remove('active');
-                        }
-                    });
-                    // Mostrar modal
-                    document.querySelector('.product-modal').classList.add('active');
-                }
+                if (e.target.classList.contains('add-to-cart')) return;
+
+                // Obtener datos del producto
+                const image = card.querySelector('img').src;
+                const name = card.querySelector('.product-name, .featured-name').textContent;
+                const price = card.querySelector('.product-price, .featured-price').textContent;
+                const category = card.querySelector('.product-category') ? card.querySelector('.product-category').textContent : 'Accesorio';
+
+                // Obtener imágenes específicas del producto
+                const imagesAttr = card.getAttribute('data-images');
+                const productImages = imagesAttr ? imagesAttr.split(',') : [image, image, image, image];
+
+                currentProduct = {
+                    image: image,
+                    name: name,
+                    price: price,
+                    category: category
+                };
+
+                // Actualizar modal
+                document.querySelector('.modal-image img').src = productImages[0];
+
+                // Limpiar y llenar miniaturas
+                const thumbnailsContainer = document.querySelector('.image-thumbnails');
+                thumbnailsContainer.innerHTML = '';
+
+                productImages.forEach((imgSrc, index) => {
+                    const thumb = document.createElement('div');
+                    thumb.className = 'thumbnail';
+                    if (index === 0) thumb.classList.add('active');
+                    thumb.innerHTML = `<img src="${imgSrc}" alt="Miniatura">`;
+                    thumbnailsContainer.appendChild(thumb);
+                });
+
+                // Actualizar título y precio
+                document.querySelector('.modal-title').textContent = currentProduct.name;
+                document.querySelector('.modal-price').textContent = currentProduct.price;
+
+                // Mostrar modal
+                document.querySelector('.product-modal').classList.add('active');
             });
         });
+
+        // Cerrar modal
         document.querySelector('.modal-close').addEventListener('click', () => {
             document.querySelector('.product-modal').classList.remove('active');
         });
+
+        // Cambiar imagen al hacer clic en miniatura
+        document.querySelector('.image-thumbnails').addEventListener('click', (e) => {
+            const thumb = e.target.closest('.thumbnail');
+            if (!thumb) return;
+
+            // Remover active
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            // Agregar active al clickeado
+            thumb.classList.add('active');
+            // Cambiar imagen principal
+            const imgSrc = thumb.querySelector('img').src;
+            document.querySelector('.modal-image img').src = imgSrc;
+        });
+
         // Carrito de compras
         const cartIcon = document.querySelector('.cart-icon');
         const cart = document.querySelector('.cart');
@@ -2034,33 +2510,52 @@ justify-content: center;
         const cartTotal = document.getElementById('cart-total-amount');
         let cartProducts = [];
         let totalAmount = 0;
+
         // Abrir carrito
         cartIcon.addEventListener('click', () => {
             cart.classList.add('open');
             cartOverlay.classList.add('active');
         });
+
         // Cerrar carrito
         cartClose.addEventListener('click', () => {
             cart.classList.remove('open');
             cartOverlay.classList.remove('active');
         });
+
         cartOverlay.addEventListener('click', () => {
             cart.classList.remove('open');
             cartOverlay.classList.remove('active');
         });
+
         // Agregar al carrito desde el modal
         document.querySelector('.modal-add-to-cart').addEventListener('click', () => {
             if (currentProduct) {
-                const quantity = parseInt(document.querySelector('.quantity-input').value);
+                const quantityInput = document.querySelector('.quantity-input');
+                const quantity = parseInt(quantityInput.value);
                 const sizeElements = document.querySelectorAll('.size-options .selected');
-                const size = sizeElements.length > 0 ? sizeElements[0].textContent : 'M';
                 const colorElements = document.querySelectorAll('.color-options .selected');
-                let color = 'Negro';
-                if (colorElements.length > 0) {
-                    if (colorElements[0].classList.contains('color-black')) color = 'Negro';
-                    else if (colorElements[0].classList.contains('color-white')) color = 'Blanco';
-                    else if (colorElements[0].classList.contains('color-blue')) color = 'Azul';
+
+                // Validaciones
+                if (quantity <= 0) {
+                    alert("La cantidad debe ser al menos 1.");
+                    return;
                 }
+                if (sizeElements.length === 0) {
+                    alert("Por favor, seleccioná un talle.");
+                    return;
+                }
+                if (colorElements.length === 0) {
+                    alert("Por favor, seleccioná un color.");
+                    return;
+                }
+
+                const size = sizeElements[0].textContent;
+                let color = 'Negro';
+                if (colorElements[0].classList.contains('color-black')) color = 'Negro';
+                else if (colorElements[0].classList.contains('color-white')) color = 'Blanco';
+                else if (colorElements[0].classList.contains('color-blue')) color = 'Azul';
+
                 const shippingElements = document.querySelectorAll('.shipping-options .selected');
                 const shipping = shippingElements.length > 0 ? shippingElements[0].textContent.split(' - ')[0] : 'Normal (5-7 días)';
                 const price = parseInt(currentProduct.price.replace('$', '').replace('.', ''));
@@ -2084,6 +2579,7 @@ justify-content: center;
                 document.querySelector('.product-modal').classList.remove('active');
             }
         });
+
         // Agregar al carrito desde la tarjeta
         document.querySelectorAll('.add-to-cart').forEach(button => {
             button.addEventListener('click', (e) => {
@@ -2111,6 +2607,7 @@ justify-content: center;
                 cartOverlay.classList.add('active');
             });
         });
+
         // Actualizar carrito
         function updateCart() {
             cartItems.innerHTML = '';
@@ -2145,6 +2642,7 @@ justify-content: center;
             }
             cartTotal.textContent = `$${totalAmount.toLocaleString('es-AR')}`;
         }
+
         // Control de cantidad en el modal
         document.querySelector('.quantity-btn:nth-child(1)').addEventListener('click', () => {
             const input = document.querySelector('.quantity-input');
@@ -2156,8 +2654,11 @@ justify-content: center;
         document.querySelector('.quantity-btn:nth-child(3)').addEventListener('click', () => {
             const input = document.querySelector('.quantity-input');
             let value = parseInt(input.value);
-            input.value = value + 1;
+            if (value < 99) {
+                input.value = value + 1;
+            }
         });
+
         // Selección de opciones en el modal
         document.querySelectorAll('.size-option').forEach(option => {
             option.addEventListener('click', () => {
@@ -2183,6 +2684,7 @@ justify-content: center;
                 option.classList.add('selected');
             });
         });
+
         // Selección de métodos de pago
         document.querySelectorAll('.payment-option').forEach(option => {
             option.addEventListener('click', () => {
@@ -2192,16 +2694,20 @@ justify-content: center;
                 option.classList.add('selected');
             });
         });
+
         // Mobile menu
         const menuToggle = document.querySelector('.menu-toggle');
         const mobileMenu = document.querySelector('.mobile-menu');
         const mobileMenuClose = document.querySelector('.mobile-menu-close');
+
         menuToggle.addEventListener('click', () => {
             mobileMenu.classList.add('active');
         });
+
         mobileMenuClose.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
         });
+
         document.querySelectorAll('.mobile-nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
@@ -2209,78 +2715,28 @@ justify-content: center;
                 scrollToSection(section);
             });
         });
-        // Añadir funcionalidad de scroll a los featured cards
-        document.querySelectorAll('.featured-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (!e.target.classList.contains('add-to-cart')) {
-                    // Obtener información del producto
-                    const image = card.querySelector('img').src;
-                    const name = card.querySelector('.featured-name').textContent;
-                    const price = card.querySelector('.featured-price').textContent;
-                    currentProduct = {
-                        image: image,
-                        name: name,
-                        price: price,
-                        category: 'Destacado'
-                    };
-                    // Actualizar modal
-                    document.querySelector('.modal-image img').src = currentProduct.image;
-                    document.querySelector('.modal-title').textContent = currentProduct.name;
-                    document.querySelector('.modal-price').textContent = currentProduct.price;
-                    // Resetear thumbnails
-                    document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
-                        if (index === 0) {
-                            thumb.classList.add('active');
-                        } else {
-                            thumb.classList.remove('active');
-                        }
-                    });
-                    // Mostrar modal
-                    document.querySelector('.product-modal').classList.add('active');
-                }
-            });
-        });
-        
+
         // Funcionalidad de zoom en imagen
         const modalImage = document.querySelector('.modal-image');
         const modalImageImg = document.querySelector('.modal-image img');
         const imageZoom = document.querySelector('.image-zoom');
-        
+
         modalImage.addEventListener('mousemove', (e) => {
             const rect = modalImage.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
             const xPercent = x / rect.width * 100;
             const yPercent = y / rect.height * 100;
-            
             imageZoom.style.backgroundImage = `url(${modalImageImg.src})`;
             imageZoom.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
         });
-        
+
         modalImage.addEventListener('mouseleave', () => {
             imageZoom.style.opacity = '0';
         });
-        
+
         modalImage.addEventListener('mouseenter', () => {
             imageZoom.style.opacity = '1';
-        });
-
-        // Funcionalidad de thumbnails
-        document.querySelectorAll('.thumbnail').forEach(thumbnail => {
-            thumbnail.addEventListener('click', () => {
-                // Remover clase active de todos los thumbnails
-                document.querySelectorAll('.thumbnail').forEach(t => {
-                    t.classList.remove('active');
-                });
-                
-                // Agregar clase active al thumbnail clickeado
-                thumbnail.classList.add('active');
-                
-                // Cambiar imagen principal
-                const imgSrc = thumbnail.querySelector('img').src;
-                document.querySelector('.modal-image img').src = imgSrc;
-            });
         });
 
         // Cerrar modales al hacer clic fuera
@@ -2290,7 +2746,240 @@ justify-content: center;
                 document.querySelector('.product-modal').classList.remove('active');
             }
         });
+
+        // === PROCESO DE COMPRA EN PÁGINA INTERNA CON #checkout ===
+        const checkoutButton = document.querySelector('.checkout-button');
+        const checkoutPage = document.querySelector('.checkout-page');
+        const steps = document.querySelectorAll('.step');
+        const stepForms = document.querySelectorAll('.step-form');
+        const gotoStep2 = document.getElementById('goto-step-2');
+        const gotoStep3 = document.getElementById('goto-step-3');
+        const backToStep1 = document.getElementById('back-to-step-1');
+        const finishPurchase = document.getElementById('finish-purchase');
+        const thankYouPage = document.querySelector('.thank-you-page');
+        const closeThankYou = document.getElementById('close-thank-you');
+        const ratingStars = document.querySelectorAll('.star');
+        const ratingText = document.getElementById('rating-text');
+
+        // Variables globales para cálculos
+        let checkoutData = {
+            subtotal: 0,
+            shipping: 0,
+            discount: 0,
+            total: 0,
+            paymentMethod: 'transferencia'
+        };
+
+        // Detectar si la URL tiene #checkout
+        function checkHash() {
+            if (window.location.hash === '#checkout' && cartProducts.length > 0) {
+                updateCheckoutStep1();
+                checkoutPage.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                checkoutPage.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Escuchar cambios en el hash
+        window.addEventListener('hashchange', checkHash);
+        window.addEventListener('load', checkHash);
+
+        // Abrir checkout con enlace interno
+        checkoutButton.addEventListener('click', () => {
+            if (cartProducts.length === 0) {
+                alert("Tu carrito está vacío. Agregá productos antes de finalizar la compra.");
+                return;
+            }
+            window.location.hash = 'checkout';
+        });
+
+        // Actualizar paso 1
+        function updateCheckoutStep1() {
+            const container = document.getElementById('checkout-cart-items');
+            container.innerHTML = '';
+            let subtotal = 0;
+
+            cartProducts.forEach(item => {
+                const itemEl = document.createElement('div');
+                itemEl.innerHTML = `
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <img src="${item.image}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>Talle: ${item.size} | Color: ${item.color} | Cantidad: ${item.quantity}</small><br>
+                            <strong>$${item.itemTotal.toLocaleString('es-AR')}</strong>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(itemEl);
+                subtotal += item.itemTotal;
+            });
+
+            // Calcular envío
+            let shipping = 0;
+            if (subtotal < 80000) {
+                shipping = 5000; // Envío normal
+            }
+
+            // Guardar valores
+            checkoutData.subtotal = subtotal;
+            checkoutData.shipping = shipping;
+            checkoutData.total = subtotal + shipping;
+
+            // Mostrar en UI
+            document.getElementById('checkout-subtotal').textContent = `$${subtotal.toLocaleString('es-AR')}`;
+            document.getElementById('checkout-shipping').textContent = shipping === 0 ? 'Gratis' : `$${shipping.toLocaleString('es-AR')}`;
+            document.getElementById('checkout-total').textContent = `$${(subtotal + shipping).toLocaleString('es-AR')}`;
+
+            // Resetear descuento
+            document.getElementById('discount-row').style.display = 'none';
+        }
+
+        // Navegación entre pasos
+        gotoStep2.addEventListener('click', () => {
+            if (validateStep1()) {
+                goToStep(2);
+            }
+        });
+
+        gotoStep3.addEventListener('click', () => {
+            if (validateStep2()) {
+                updateCheckoutStep3();
+                goToStep(3);
+            }
+        });
+
+        backToStep1.addEventListener('click', () => {
+            goToStep(1);
+        });
+
+        function goToStep(step) {
+            steps.forEach(s => {
+                s.classList.remove('active', 'completed');
+                if (s.dataset.step < step) s.classList.add('completed');
+                if (s.dataset.step == step) s.classList.add('active');
+            });
+            stepForms.forEach(f => f.classList.remove('active'));
+            document.getElementById(`step-${step}`).classList.add('active');
+        }
+
+        // Validaciones
+        function validateStep1() {
+            return true; // Siempre válido si hay productos
+        }
+
+        function validateStep2() {
+            let valid = true;
+            const fields = ['name', 'email', 'phone', 'address', 'city', 'zip'];
+            fields.forEach(field => {
+                const input = document.getElementById(field);
+                const error = document.getElementById(`${field}-error`);
+                if (!input.value.trim()) {
+                    error.textContent = 'Este campo es obligatorio';
+                    valid = false;
+                } else {
+                    error.textContent = '';
+                }
+            });
+            return valid;
+        }
+
+        // Paso 3: Actualizar con método de pago
+        function updateCheckoutStep3() {
+            // Resetear
+            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+            document.querySelector(`.payment-method[data-method="transferencia"]`).classList.add('selected');
+
+            const subtotal = checkoutData.subtotal;
+            let shipping = checkoutData.shipping;
+            let discount = 0;
+            let total = subtotal + shipping;
+
+            // Aplicar descuento por transferencia
+            discount = subtotal * 0.10;
+            total = subtotal - discount + shipping;
+
+            // Mostrar
+            document.getElementById('final-subtotal').textContent = `$${subtotal.toLocaleString('es-AR')}`;
+            document.getElementById('final-shipping').textContent = shipping === 0 ? 'Gratis' : `$${shipping.toLocaleString('es-AR')}`;
+            document.getElementById('final-discount').textContent = `-$${discount.toLocaleString('es-AR')}`;
+            document.getElementById('final-total').textContent = `$${total.toLocaleString('es-AR')}`;
+            document.getElementById('final-discount-row').style.display = 'flex';
+
+            // Selección de método
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', () => {
+                    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                    method.classList.add('selected');
+                    const methodType = method.getAttribute('data-method');
+                    updateFinalTotal(methodType);
+                });
+            });
+
+            updateFinalTotal('transferencia'); // Inicial
+        }
+
+        function updateFinalTotal(method) {
+            const subtotal = checkoutData.subtotal;
+            let shipping = checkoutData.shipping;
+            let discount = 0;
+            let total = subtotal + shipping;
+
+            if (method === 'transferencia') {
+                discount = subtotal * 0.10;
+                total = subtotal - discount + shipping;
+            }
+
+            document.getElementById('final-discount').textContent = `-$${discount.toLocaleString('es-AR')}`;
+            document.getElementById('final-total').textContent = `$${total.toLocaleString('es-AR')}`;
+            document.getElementById('final-discount-row').style.display = method === 'transferencia' ? 'flex' : 'none';
+        }
+
+        // Finalizar compra
+        finishPurchase.addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            thankYouPage.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Reiniciar todo
+            cartProducts = [];
+            totalAmount = 0;
+            updateCart();
+            cart.classList.remove('open');
+            cartOverlay.classList.remove('active');
+            checkoutPage.classList.remove('active');
+            window.location.hash = ''; // Limpiar hash
+            document.body.style.overflow = 'auto';
+        });
+
+        // Calificación
+        ratingStars.forEach(star => {
+            star.addEventListener('click', () => {
+                const value = star.getAttribute('data-value');
+                ratingStars.forEach(s => {
+                    s.classList.remove('selected');
+                    if (s.getAttribute('data-value') <= value) {
+                        s.classList.add('selected');
+                    }
+                });
+                ratingText.textContent = `Calificaste con ${value} estrellas. ¡Gracias!`;
+            });
+        });
+
+        // Cerrar gracias
+        closeThankYou.addEventListener('click', () => {
+            thankYouPage.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Resetear calificación
+            ratingStars.forEach(s => s.classList.remove('selected'));
+            ratingText.textContent = 'Seleccioná una calificación';
+        });
     </script>
 </body>
 </html>
 ```
+
+-
+
