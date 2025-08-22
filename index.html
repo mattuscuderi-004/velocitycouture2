@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -245,7 +244,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: all 0.5s;
         }
         .cta-button:hover::before {
@@ -1773,13 +1772,266 @@
             background-color: var(--negro);
             transform: translateY(-2px);
         }
+
+        /* Contact Page */
+        .contact-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--blanco);
+            z-index: 1100;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .contact-page.active {
+            display: block;
+        }
+        .contact-header {
+            background-color: var(--azul-maro);
+            color: var(--blanco);
+            padding: 20px 40px;
+            text-align: center;
+        }
+        .contact-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .contact-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-title {
+            font-size: 28px;
+            color: var(--azul-maro);
+            margin-bottom: 10px;
+        }
+        .contact-description {
+            font-size: 16px;
+            color: var(--gris-oscuro);
+            line-height: 1.6;
+        }
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            color: var(--gris-oscuro);
+        }
+        .contact-method i {
+            font-size: 24px;
+            color: var(--azul-maro);
+        }
+        .contact-form {
+            background-color: var(--gris);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--azul-maro);
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gris-claro);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background-color: var(--blanco);
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--azul-maro);
+            outline: none;
+        }
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        .submit-btn {
+            width: 100%;
+            background-color: var(--azul-maro);
+            color: var(--blanco);
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.5s;
+        }
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        .submit-btn:hover {
+            background-color: var(--negro);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: var(--azul-maro);
+            color: var(--blanco);
+            padding: 60px 20px 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            text-align: left;
+        }
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--blanco);
+        }
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-section a:hover {
+            color: var(--blanco);
+        }
+        .footer-contact-btn {
+            background-color: transparent;
+            color: var(--blanco);
+            border: 2px solid var(--blanco);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.5s;
+        }
+        .footer-contact-btn:hover::before {
+            left: 100%;
+        }
+        .footer-contact-btn:hover {
+            background-color: var(--blanco);
+            color: var(--azul-maro);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .social-link {
+            display: block;
+            font-weight: 500;
+            position: relative;
+            padding-left: 30px;
+        }
+        .social-link::before {
+            content: '📸';
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .payment-img-placeholder, .shipping-img-placeholder {
+            width: 3px;
+            height: 3px;
+            background-color: transparent;
+            border: 1px dashed rgba(255, 255, 255, 0.5);
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+        }
+
+        /* Animación de resaltado para el botón de contacto en el header */
+        .nav-menu a.highlight-contact,
+        .mobile-nav-menu a.highlight-contact {
+            animation: pulse 1s ease-in-out;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--azul-maro) !important;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
     <!-- Barra de descuento continua -->
     <div class="discount-bar">
         <div class="discount-text">
-            10% de descuento con transferencia bancaria • Envío gratis a partir de $100.000 • 10% de descuento con transferencia bancaria • Envío gratis a partir de $100.000 • 10% de descuento con transferencia bancaria • Envío gratis a partir de $100.000 •
+            10% de descuento con transferencia bancaria • Envío gratis a partir de $100.000 • 10% de descuento con transferencia bancaria • Envío gratis a partir de $100.000 • 
         </div>
     </div>
     <!-- Header -->
@@ -1791,6 +2043,7 @@
                 <li><a class="nav-link" data-section="inicio">Inicio</a></li>
                 <li><a class="nav-link" data-section="productos">Productos</a></li>
                 <li><a class="nav-link" data-section="quienes-somos">Quiénes Somos</a></li>
+                <li><a class="nav-link" data-section="contacto">Contacto</a></li>
             </ul>
             <div class="search-cart">
                 <div class="search-icon">🔍</div>
@@ -1805,6 +2058,7 @@
             <li><a class="mobile-nav-link" data-section="inicio">Inicio</a></li>
             <li><a class="mobile-nav-link" data-section="productos">Productos</a></li>
             <li><a class="mobile-nav-link" data-section="quienes-somos">Quiénes Somos</a></li>
+            <li><a class="mobile-nav-link" data-section="contacto">Contacto</a></li>
         </ul>
     </div>
     <!-- Hero Section -->
@@ -2351,6 +2605,98 @@
         </div>
     </div>
 
+    <!-- Contact Page -->
+    <div class="contact-page">
+        <div class="contact-header">
+            <h1>Contáctanos</h1>
+            <p>Estamos aquí para ayudarte con cualquier consulta</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2 class="contact-title">Estamos para ayudarte</h2>
+                <p class="contact-description">¿Tienes alguna pregunta sobre nuestros productos, envíos o devoluciones? No dudes en contactarnos. Nuestro equipo está disponible para asistirte y asegurarnos de que tu experiencia con Velocity Couture sea excelente.</p>
+                
+                <div class="contact-method">
+                    <i>📱</i>
+                    <span><strong>WhatsApp:</strong> +54 9 11 1234-5678</span>
+                </div>
+                <div class="contact-method">
+                    <i>✉️</i>
+                    <span><strong>Email:</strong> hola@velocitycouture.com</span>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Contáctanos directamente</h3>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="contact-name">Nombre</label>
+                        <input type="text" id="contact-name" required>
+                        <div class="error" id="name-error-contact"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" required>
+                        <div class="error" id="email-error-contact"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-phone">Teléfono</label>
+                        <input type="tel" id="contact-phone" required>
+                        <div class="error" id="phone-error-contact"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-subject">Asunto</label>
+                        <input type="text" id="contact-subject" required>
+                        <div class="error" id="subject-error-contact"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Mensaje</label>
+                        <textarea id="contact-message" required></textarea>
+                        <div class="error" id="message-error-contact"></div>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <button class="footer-contact-btn">Ir a Contacto</button>
+            </div>
+            <div class="footer-section">
+                <h3>Redes Sociales</h3>
+                <a href="https://www.instagram.com/velocity_couture/?hl=es" target="_blank" class="social-link">
+                    @velocity_couture
+                </a>
+            </div>
+            <div class="footer-section">
+                <h3>Medios de Pago</h3>
+                <p>Aceptamos todas las tarjetas y transferencias</p>
+                <div class="payment-img-placeholder"></div>
+            </div>
+            <div class="footer-section">
+                <h3>Navegación</h3>
+                <ul class="footer-nav">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Formas de Envío</h3>
+                <p>Envíos a todo el país y retiro en local</p>
+                <div class="shipping-img-placeholder"></div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Velocity Couture. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
     <script>
         // Animación de scroll para elementos
         const observer = new IntersectionObserver((entries) => {
@@ -2387,7 +2733,11 @@
         document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 const section = link.getAttribute('data-section');
-                scrollToSection(section);
+                if (section === 'contacto') {
+                    window.location.hash = 'contacto';
+                } else {
+                    scrollToSection(section);
+                }
             });
         });
         // Botón de logo
@@ -2712,7 +3062,11 @@
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
                 const section = link.getAttribute('data-section');
-                scrollToSection(section);
+                if (section === 'contacto') {
+                    window.location.hash = 'contacto';
+                } else {
+                    scrollToSection(section);
+                }
             });
         });
 
@@ -2770,14 +3124,91 @@
             paymentMethod: 'transferencia'
         };
 
-        // Detectar si la URL tiene #checkout
+        // === CONTACT PAGE ===
+        const contactPage = document.querySelector('.contact-page');
+        const contactForm = document.getElementById('contact-form');
+
+        // Validar y enviar formulario de contacto
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let valid = true;
+            const name = document.getElementById('contact-name');
+            const email = document.getElementById('contact-email');
+            const phone = document.getElementById('contact-phone');
+            const subject = document.getElementById('contact-subject');
+            const message = document.getElementById('contact-message');
+
+            const nameError = document.getElementById('name-error-contact');
+            const emailError = document.getElementById('email-error-contact');
+            const phoneError = document.getElementById('phone-error-contact');
+            const subjectError = document.getElementById('subject-error-contact');
+            const messageError = document.getElementById('message-error-contact');
+
+            // Validaciones
+            if (!name.value.trim()) {
+                nameError.textContent = 'El nombre es obligatorio';
+                valid = false;
+            } else {
+                nameError.textContent = '';
+            }
+
+            if (!email.value.trim()) {
+                emailError.textContent = 'El email es obligatorio';
+                valid = false;
+            } else if (!/\S+@\S+\.\S+/.test(email.value)) {
+                emailError.textContent = 'El email no es válido';
+                valid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            if (!phone.value.trim()) {
+                phoneError.textContent = 'El teléfono es obligatorio';
+                valid = false;
+            } else {
+                phoneError.textContent = '';
+            }
+
+            if (!subject.value.trim()) {
+                subjectError.textContent = 'El asunto es obligatorio';
+                valid = false;
+            } else {
+                subjectError.textContent = '';
+            }
+
+            if (!message.value.trim()) {
+                messageError.textContent = 'El mensaje es obligatorio';
+                valid = false;
+            } else {
+                messageError.textContent = '';
+            }
+
+            if (valid) {
+                alert('¡Mensaje enviado! Nos pondremos en contacto contigo pronto.');
+                contactForm.reset();
+            }
+        });
+
+        // Detectar si la URL tiene #checkout o #contacto
         function checkHash() {
             if (window.location.hash === '#checkout' && cartProducts.length > 0) {
                 updateCheckoutStep1();
                 checkoutPage.classList.add('active');
                 document.body.style.overflow = 'hidden';
+            } else if (window.location.hash === '#contacto') {
+                contactPage.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                // Resaltar el botón de contacto en el header
+                const contactLink = document.querySelector('a[data-section="contacto"]');
+                if (contactLink) {
+                    contactLink.classList.add('highlight-contact');
+                    setTimeout(() => {
+                        contactLink.classList.remove('highlight-contact');
+                    }, 2000);
+                }
             } else {
                 checkoutPage.classList.remove('active');
+                contactPage.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
         }
@@ -2976,10 +3407,16 @@
             ratingStars.forEach(s => s.classList.remove('selected'));
             ratingText.textContent = 'Seleccioná una calificación';
         });
+
+        // Efecto para el botón "Ir a Contacto" en el footer
+        document.querySelector('.footer-contact-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            // Ir al header
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Activar hash
+            window.location.hash = 'contacto';
+        });
     </script>
 </body>
 </html>
-```
-
--
-
