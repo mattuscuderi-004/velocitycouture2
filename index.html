@@ -968,15 +968,8 @@
             background: linear-gradient(90deg, transparent, rgba(10, 25, 47, 0.1), transparent);
             transition: all 0.5s;
         }
-        .size-option:hover::before, .color-option:hover::before, .shipping-option:hover::before {
+        .size-option:hover::before {
             left: 100%;
-        }
-        .size-option.selected, .color-option.selected, .shipping-option.selected {
-            background-color: var(--azul-maro);
-            color: var(--blanco);
-            border-color: var(--azul-maro);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(10, 25, 47, 0.2);
         }
         .color-option {
             width: 36px;
@@ -2627,32 +2620,33 @@
             </div>
             <div class="contact-form">
                 <h3>Contáctanos directamente</h3>
-                <form id="contact-form">
+                <form id="contact-form" action="https://formspree.io/f/manbrejz" method="POST">
                     <div class="form-group">
                         <label for="contact-name">Nombre</label>
-                        <input type="text" id="contact-name" required>
+                        <input type="text" id="contact-name" name="name" required>
                         <div class="error" id="name-error-contact"></div>
                     </div>
                     <div class="form-group">
                         <label for="contact-email">Email</label>
-                        <input type="email" id="contact-email" required>
+                        <input type="email" id="contact-email" name="email" required>
                         <div class="error" id="email-error-contact"></div>
                     </div>
                     <div class="form-group">
                         <label for="contact-phone">Teléfono</label>
-                        <input type="tel" id="contact-phone" required>
+                        <input type="tel" id="contact-phone" name="phone" required>
                         <div class="error" id="phone-error-contact"></div>
                     </div>
                     <div class="form-group">
                         <label for="contact-subject">Asunto</label>
-                        <input type="text" id="contact-subject" required>
+                        <input type="text" id="contact-subject" name="subject" required>
                         <div class="error" id="subject-error-contact"></div>
                     </div>
                     <div class="form-group">
                         <label for="contact-message">Mensaje</label>
-                        <textarea id="contact-message" required></textarea>
+                        <textarea id="contact-message" name="message" required></textarea>
                         <div class="error" id="message-error-contact"></div>
                     </div>
+                    <input type="hidden" name="_next" value="https://mattuscuderi-004.github.io/velocitycouture1/#contacto" />
                     <button type="submit" class="submit-btn">Enviar Mensaje</button>
                 </form>
             </div>
@@ -3128,65 +3122,64 @@
         const contactPage = document.querySelector('.contact-page');
         const contactForm = document.getElementById('contact-form');
 
-        // Validar y enviar formulario de contacto
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            let valid = true;
-            const name = document.getElementById('contact-name');
-            const email = document.getElementById('contact-email');
-            const phone = document.getElementById('contact-phone');
-            const subject = document.getElementById('contact-subject');
-            const message = document.getElementById('contact-message');
+        // Validar formulario de contacto (sin bloquear el envío)
+contactForm.addEventListener('submit', (e) => {
+    let valid = true;
+    const name = document.getElementById('contact-name');
+    const email = document.getElementById('contact-email');
+    const phone = document.getElementById('contact-phone');
+    const subject = document.getElementById('contact-subject');
+    const message = document.getElementById('contact-message');
 
-            const nameError = document.getElementById('name-error-contact');
-            const emailError = document.getElementById('email-error-contact');
-            const phoneError = document.getElementById('phone-error-contact');
-            const subjectError = document.getElementById('subject-error-contact');
-            const messageError = document.getElementById('message-error-contact');
+    const nameError = document.getElementById('name-error-contact');
+    const emailError = document.getElementById('email-error-contact');
+    const phoneError = document.getElementById('phone-error-contact');
+    const subjectError = document.getElementById('subject-error-contact');
+    const messageError = document.getElementById('message-error-contact');
 
-            // Validaciones
-            if (!name.value.trim()) {
-                nameError.textContent = 'El nombre es obligatorio';
-                valid = false;
-            } else {
-                nameError.textContent = '';
-            }
+    // Validaciones
+    if (!name.value.trim()) {
+        nameError.textContent = 'El nombre es obligatorio';
+        valid = false;
+    } else {
+        nameError.textContent = '';
+    }
 
-            if (!email.value.trim()) {
-                emailError.textContent = 'El email es obligatorio';
-                valid = false;
-            } else if (!/\S+@\S+\.\S+/.test(email.value)) {
-                emailError.textContent = 'El email no es válido';
-                valid = false;
-            } else {
-                emailError.textContent = '';
-            }
+    if (!email.value.trim()) {
+        emailError.textContent = 'El email es obligatorio';
+        valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email.value)) {
+        emailError.textContent = 'El email no es válido';
+        valid = false;
+    } else {
+        emailError.textContent = '';
+    }
 
-            if (!phone.value.trim()) {
-                phoneError.textContent = 'El teléfono es obligatorio';
-                valid = false;
-            } else {
-                phoneError.textContent = '';
-            }
+    if (!phone.value.trim()) {
+        phoneError.textContent = 'El teléfono es obligatorio';
+        valid = false;
+    } else {
+        phoneError.textContent = '';
+    }
 
-            if (!subject.value.trim()) {
-                subjectError.textContent = 'El asunto es obligatorio';
-                valid = false;
-            } else {
-                subjectError.textContent = '';
-            }
+    if (!subject.value.trim()) {
+        subjectError.textContent = 'El asunto es obligatorio';
+        valid = false;
+    } else {
+        subjectError.textContent = '';
+    }
 
-            if (!message.value.trim()) {
-                messageError.textContent = 'El mensaje es obligatorio';
-                valid = false;
-            } else {
-                messageError.textContent = '';
-            }
+    if (!message.value.trim()) {
+        messageError.textContent = 'El mensaje es obligatorio';
+        valid = false;
+    } else {
+        messageError.textContent = '';
+    }
 
-            if (valid) {
-                alert('¡Mensaje enviado! Nos pondremos en contacto contigo pronto.');
-                contactForm.reset();
-            }
+    if (!valid) {
+        e.preventDefault(); // Solo detener si hay errores
+    }
+    // Si es válido, deja que el formulario se envíe a Formspren
         });
 
         // Detectar si la URL tiene #checkout o #contacto
