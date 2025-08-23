@@ -2580,7 +2580,7 @@
         <div class="thank-you-content">
             <div class="thank-you-icon">🎉</div>
             <h2 class="thank-you-title">¡Gracias por tu compra!</h2>
-            <p class="thank-you-message">Tu pedido ha sido confirmado. Recibirás un correo con los detalles de seguimiento. ¡Esperamos que disfrutes tu nueva ropa Velocity!</p>
+            <p class="thank-you-message">Tu pedido <strong id="order-id-display">#VC-123456</strong> ha sido confirmado. Recibirás un correo con los detalles de seguimiento. ¡Esperamos que disfrutes tu nueva ropa Velocity!</p>
             
             <div class="rating-section">
                 <div class="rating-label">Califica tu experiencia</div>
@@ -3122,64 +3122,65 @@
         const contactPage = document.querySelector('.contact-page');
         const contactForm = document.getElementById('contact-form');
 
-        // Validar formulario de contacto (sin bloquear el envío)
-contactForm.addEventListener('submit', (e) => {
-    let valid = true;
-    const name = document.getElementById('contact-name');
-    const email = document.getElementById('contact-email');
-    const phone = document.getElementById('contact-phone');
-    const subject = document.getElementById('contact-subject');
-    const message = document.getElementById('contact-message');
+        // Validar y enviar formulario de contacto
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let valid = true;
+            const name = document.getElementById('contact-name');
+            const email = document.getElementById('contact-email');
+            const phone = document.getElementById('contact-phone');
+            const subject = document.getElementById('contact-subject');
+            const message = document.getElementById('contact-message');
 
-    const nameError = document.getElementById('name-error-contact');
-    const emailError = document.getElementById('email-error-contact');
-    const phoneError = document.getElementById('phone-error-contact');
-    const subjectError = document.getElementById('subject-error-contact');
-    const messageError = document.getElementById('message-error-contact');
+            const nameError = document.getElementById('name-error-contact');
+            const emailError = document.getElementById('email-error-contact');
+            const phoneError = document.getElementById('phone-error-contact');
+            const subjectError = document.getElementById('subject-error-contact');
+            const messageError = document.getElementById('message-error-contact');
 
-    // Validaciones
-    if (!name.value.trim()) {
-        nameError.textContent = 'El nombre es obligatorio';
-        valid = false;
-    } else {
-        nameError.textContent = '';
-    }
+            // Validaciones
+            if (!name.value.trim()) {
+                nameError.textContent = 'El nombre es obligatorio';
+                valid = false;
+            } else {
+                nameError.textContent = '';
+            }
 
-    if (!email.value.trim()) {
-        emailError.textContent = 'El email es obligatorio';
-        valid = false;
-    } else if (!/\S+@\S+\.\S+/.test(email.value)) {
-        emailError.textContent = 'El email no es válido';
-        valid = false;
-    } else {
-        emailError.textContent = '';
-    }
+            if (!email.value.trim()) {
+                emailError.textContent = 'El email es obligatorio';
+                valid = false;
+            } else if (!/\S+@\S+\.\S+/.test(email.value)) {
+                emailError.textContent = 'El email no es válido';
+                valid = false;
+            } else {
+                emailError.textContent = '';
+            }
 
-    if (!phone.value.trim()) {
-        phoneError.textContent = 'El teléfono es obligatorio';
-        valid = false;
-    } else {
-        phoneError.textContent = '';
-    }
+            if (!phone.value.trim()) {
+                phoneError.textContent = 'El teléfono es obligatorio';
+                valid = false;
+            } else {
+                phoneError.textContent = '';
+            }
 
-    if (!subject.value.trim()) {
-        subjectError.textContent = 'El asunto es obligatorio';
-        valid = false;
-    } else {
-        subjectError.textContent = '';
-    }
+            if (!subject.value.trim()) {
+                subjectError.textContent = 'El asunto es obligatorio';
+                valid = false;
+            } else {
+                subjectError.textContent = '';
+            }
 
-    if (!message.value.trim()) {
-        messageError.textContent = 'El mensaje es obligatorio';
-        valid = false;
-    } else {
-        messageError.textContent = '';
-    }
+            if (!message.value.trim()) {
+                messageError.textContent = 'El mensaje es obligatorio';
+                valid = false;
+            } else {
+                messageError.textContent = '';
+            }
 
-    if (!valid) {
-        e.preventDefault(); // Solo detener si hay errores
-    }
-    // Si es válido, deja que el formulario se envíe a Formspren
+            if (valid) {
+                alert('¡Mensaje enviado! Nos pondremos en contacto contigo pronto.');
+                contactForm.reset();
+            }
         });
 
         // Detectar si la URL tiene #checkout o #contacto
@@ -3362,20 +3363,81 @@ contactForm.addEventListener('submit', (e) => {
         }
 
         // Finalizar compra
-        finishPurchase.addEventListener('click', () => {
-            const name = document.getElementById('name').value;
-            thankYouPage.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Reiniciar todo
-            cartProducts = [];
-            totalAmount = 0;
-            updateCart();
-            cart.classList.remove('open');
-            cartOverlay.classList.remove('active');
-            checkoutPage.classList.remove('active');
-            window.location.hash = ''; // Limpiar hash
-            document.body.style.overflow = 'auto';
+        finishPurchase.addEventListener('click', async () => {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const zip = document.getElementById('zip').value.trim();
+
+            if (!name || !email || !phone || !address || !city || !zip) {
+                alert("Por favor, completá todos los campos.");
+                return;
+            }
+
+            // Generar número de pedido único
+            const orderId = 'VC-' + Date.now().toString().slice(-6) + Math.floor(Math.random() * 100);
+
+            // Datos de los productos
+            const productsList = cartProducts.map(p => 
+                `${p.name} (Talle: ${p.size}, Color: ${p.color}, Cantidad: ${p.quantity})`
+            ).join('\n');
+
+            // Datos del pedido
+            const orderData = {
+                id: orderId,
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+                city: city,
+                zip: zip,
+                products: productsList,
+                subtotal: `$${checkoutData.subtotal.toLocaleString('es-AR')}`,
+                shipping: checkoutData.shipping === 0 ? 'Gratis' : `$${checkoutData.shipping.toLocaleString('es-AR')}`,
+                discount: checkoutData.discount > 0 ? `-$${checkoutData.discount.toLocaleString('es-AR')}` : 'No aplica',
+                total: `$${checkoutData.total.toLocaleString('es-AR')}`,
+                paymentMethod: document.querySelector('.payment-method.selected')?.textContent.trim() || 'No especificado'
+            };
+
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbwZlzQH9vdQCT0mzmralIZ99XqUBsTDclc0jnjg231--AMnXte-h5jNHpRJNnP2zx3nww/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                // Como es no-cors, no podemos verificar response.ok, pero el pedido se envía
+                console.log('Pedido enviado a Google Sheets:', orderData);
+
+                // Mostrar pantalla de agradecimiento
+                document.getElementById('order-id-display').textContent = orderId;
+                thankYouPage.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                // Resetear todo
+                cartProducts = [];
+                totalAmount = 0;
+                updateCart();
+                cart.classList.remove('open');
+                cartOverlay.classList.remove('active');
+                checkoutPage.classList.remove('active');
+                window.location.hash = '';
+                document.body.style.overflow = 'auto';
+
+                // Guardar localmente (backup)
+                const orders = JSON.parse(localStorage.getItem('velocityOrders') || '[]');
+                orders.push({ id: orderId, orderData, date: new Date().toISOString() });
+                localStorage.setItem('velocityOrders', JSON.stringify(orders));
+
+            } catch (error) {
+                console.error('Error al enviar el pedido:', error);
+                alert('Hubo un problema. Por favor, contactanos por WhatsApp con tu pedido.');
+            }
         });
 
         // Calificación
