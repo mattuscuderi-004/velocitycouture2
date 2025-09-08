@@ -375,6 +375,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             padding: 10px 15px;
             animation: fadeInDown 0.3s ease;
+            flex-direction: column;
         }
         .search-container-header.active {
             display: flex;
@@ -397,11 +398,71 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Resultados de búsqueda */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: var(--blanco);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid var(--gris-claro);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-result-item:hover {
+            background-color: var(--gris);
+        }
+
+        .search-result-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+
+        .search-result-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .search-result-info {
+            flex: 1;
+        }
+
+        .search-result-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--azul-maro);
+            margin-bottom: 4px;
+        }
+
+        .search-result-price {
+            font-size: 13px;
+            color: var(--gris-oscuro);
+        }
+
         /* Products Grid */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
             margin-top: 20px;
         }
         .product-card {
@@ -413,6 +474,9 @@
             opacity: 0;
             transform: translateY(30px);
             position: relative;
+            max-width: 280px;
+            width: 100%;
+            margin: 0 auto;
         }
         .product-card::before {
             content: '';
@@ -439,7 +503,7 @@
             z-index: 2;
         }
         .product-image {
-            height: 300px;
+            height: 280px;
             overflow: hidden;
             position: relative;
         }
@@ -472,7 +536,7 @@
             transform: scale(1.1);
         }
         .product-info {
-            padding: 20px;
+            padding: 18px;
             position: relative;
         }
         .product-category {
@@ -482,7 +546,7 @@
             font-weight: 500;
         }
         .product-name {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--azul-maro);
             margin-bottom: 10px;
@@ -492,7 +556,7 @@
             color: var(--negro);
         }
         .product-price {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
             color: var(--gris-oscuro);
             margin-bottom: 15px;
@@ -502,14 +566,14 @@
             background-color: var(--azul-maro);
             color: var(--blanco);
             border: none;
-            padding: 12px;
+            padding: 11px;
             border-radius: 30px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            font-size: 16px;
+            font-size: 14px;
         }
         .add-to-cart::before {
             content: '';
@@ -1144,6 +1208,51 @@
         .progress-text {
             font-size: 14px;
             color: var(--gris-oscuro);
+        }
+        /* Botón "Ver más productos" */
+        .view-products-btn {
+            width: 100%;
+            background-color: transparent;
+            color: var(--azul-maro);
+            border: 2px solid var(--azul-maro);
+            padding: 12px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+        }
+        .view-products-btn:hover {
+            background-color: var(--azul-maro);
+            color: var(--blanco);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        /* Controles de cantidad en carrito */
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--gris-claro);
+            background-color: var(--blanco);
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .quantity-btn:hover {
+            background-color: var(--gris);
+            transform: translateY(-2px);
+        }
+        .quantity-value {
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
         }
         .checkout-button {
             width: 100%;
@@ -2150,6 +2259,7 @@
             <span>Total:</span>
             <span id="cart-total-amount">$0</span>
         </div>
+        <button class="view-products-btn">Ver más productos</button>
         <button class="checkout-button">Finalizar compra</button>
         <!-- Métodos de pago eliminados del carrito -->
     </div>
@@ -2224,15 +2334,46 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="city">Ciudad</label>
-                        <input type="text" id="city" required>
-                        <div class="error" id="city-error"></div>
+                        <label for="province">Provincia</label>
+                        <select id="province" required>
+                            <option value="">Seleccionar provincia</option>
+                            <option value="CABA">CABA</option>
+                            <option value="Buenos Aires">Buenos Aires</option>
+                            <option value="Córdoba">Córdoba</option>
+                            <option value="Santa Fe">Santa Fe</option>
+                            <option value="Mendoza">Mendoza</option>
+                            <option value="Tucumán">Tucumán</option>
+                            <option value="Salta">Salta</option>
+                            <option value="Entre Ríos">Entre Ríos</option>
+                            <option value="Misiones">Misiones</option>
+                            <option value="Chaco">Chaco</option>
+                            <option value="Corrientes">Corrientes</option>
+                            <option value="San Luis">San Luis</option>
+                            <option value="San Juan">San Juan</option>
+                            <option value="La Rioja">La Rioja</option>
+                            <option value="Catamarca">Catamarca</option>
+                            <option value="Jujuy">Jujuy</option>
+                            <option value="Formosa">Formosa</option>
+                            <option value="Neuquén">Neuquén</option>
+                            <option value="Río Negro">Río Negro</option>
+                            <option value="Chubut">Chubut</option>
+                            <option value="Santa Cruz">Santa Cruz</option>
+                            <option value="Tierra del Fuego">Tierra del Fuego</option>
+                        </select>
+                        <div class="error" id="province-error"></div>
                     </div>
                     <div class="form-group">
-                        <label for="zip">Código Postal</label>
-                        <input type="text" id="zip" required>
-                        <div class="error" id="zip-error"></div>
+                        <label for="city">Ciudad</label>
+                        <select id="city" required>
+                            <option value="">Primero seleccioná una provincia</option>
+                        </select>
+                        <div class="error" id="city-error"></div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="zip">Código Postal</label>
+                    <input type="text" id="zip" required>
+                    <div class="error" id="zip-error"></div>
                 </div>
                 <div class="checkout-actions">
                     <button class="checkout-btn btn-prev" id="back-to-step-1">Volver</button>
@@ -2468,34 +2609,73 @@
         searchContainerHeader.className = 'search-container-header';
         searchContainerHeader.innerHTML = `
             <input type="text" class="search-input-header" placeholder="Buscar productos...">
+            <div class="search-results"></div>
         `;
         document.body.appendChild(searchContainerHeader);
+
+        const searchInputHeader = document.querySelector('.search-input-header');
+        const searchResults = searchContainerHeader.querySelector('.search-results');
 
         searchIcon.addEventListener('click', (e) => {
             e.stopPropagation();
             searchContainerHeader.classList.toggle('active');
-            document.querySelector('.search-input-header').focus();
+            if (searchContainerHeader.classList.contains('active')) {
+                searchInputHeader.focus();
+            }
         });
 
         // Cerrar al hacer clic fuera
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.search-container-header') && !e.target.classList.contains('search-icon')) {
                 searchContainerHeader.classList.remove('active');
+                searchResults.style.display = 'none';
             }
         });
 
         // Filtrar productos al escribir
-        document.querySelector('.search-input-header').addEventListener('input', () => {
-            const searchTerm = document.querySelector('.search-input-header').value.toLowerCase();
-            document.querySelectorAll('.product-card').forEach(card => {
-                const productName = card.querySelector('.product-name').textContent.toLowerCase();
-                const productCategory = card.querySelector('.product-category').textContent.toLowerCase();
-                if (productName.includes(searchTerm) || productCategory.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
+        searchInputHeader.addEventListener('input', () => {
+            const searchTerm = searchInputHeader.value.trim().toLowerCase();
+            searchResults.innerHTML = '';
+            searchResults.style.display = 'none';
+
+            if (searchTerm.length === 0) return;
+
+            const products = document.querySelectorAll('.product-card');
+            let hasResults = false;
+
+            products.forEach(card => {
+                const name = card.querySelector('.product-name').textContent.toLowerCase();
+                const price = card.querySelector('.product-price').textContent;
+                const image = card.querySelector('.product-image img').src;
+
+                if (name.includes(searchTerm)) {
+                    hasResults = true;
+
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'search-result-item';
+                    resultItem.innerHTML = `
+                        <div class="search-result-image">
+                            <img src="${image}" alt="${name}">
+                        </div>
+                        <div class="search-result-info">
+                            <div class="search-result-name">${card.querySelector('.product-name').textContent}</div>
+                            <div class="search-result-price">${price}</div>
+                        </div>
+                    `;
+                    searchResults.appendChild(resultItem);
+
+                    // Al hacer clic, abrir el modal del producto
+                    resultItem.addEventListener('click', () => {
+                        card.click(); // Simula clic en la tarjeta
+                        searchContainerHeader.classList.remove('active');
+                        searchResults.style.display = 'none';
+                    });
                 }
             });
+
+            if (hasResults) {
+                searchResults.style.display = 'block';
+            }
         });
 
         // Modal de producto - Carga dinámica de imágenes por producto
@@ -2689,7 +2869,11 @@
                             <div class="cart-item-name">${item.name}</div>
                             <div class="cart-item-size">Talle: ${item.size}</div>
                             <div class="cart-item-color">Color: ${item.color}</div>
-                            <div class="cart-item-quantity">Cantidad: ${item.quantity}</div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus">-</button>
+                                <span class="quantity-value">${item.quantity}</span>
+                                <button class="quantity-btn plus">+</button>
+                            </div>
                             <div class="cart-item-price">$${item.itemTotal.toLocaleString('es-AR')}</div>
                         </div>
                         <button class="cart-item-remove">✕</button>
@@ -2700,6 +2884,21 @@
                         totalAmount -= item.itemTotal;
                         cartProducts = cartProducts.filter(p => p.id !== item.id);
                         updateCart();
+                    });
+                    // Eventos de cantidad
+                    cartItemElement.querySelector('.plus').addEventListener('click', () => {
+                        item.quantity += 1;
+                        item.itemTotal = item.price * item.quantity;
+                        totalAmount += item.price;
+                        updateCart();
+                    });
+                    cartItemElement.querySelector('.minus').addEventListener('click', () => {
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                            item.itemTotal = item.price * item.quantity;
+                            totalAmount -= item.price;
+                            updateCart();
+                        }
                     });
                 });
             }
@@ -2844,6 +3043,66 @@
             total: 0,
             paymentMethod: 'transferencia'
         };
+
+        // Provincias y ciudades de Argentina (completas)
+        const provinces = {
+            "CABA": [
+                "Agronomía", "Almagro", "Balvanera", "Barracas", "Belgrano", "Boedo", "Caballito", "Chacarita",
+                "Coghlan", "Colegiales", "Constitución", "Flores", "Floresta", "La Boca", "La Paternal",
+                "Liniers", "Mataderos", "Monte Castro", "Monserrat", "Nueva Pompeya", "Núñez", "Palermo",
+                "Parque Avellaneda", "Parque Chacabuco", "Parque Chas", "Parque Patricios", "Puerto Madero",
+                "Recoleta", "Retiro", "Saavedra", "San Cristóbal", "San Nicolás", "San Telmo", "Vélez Sársfield",
+                "Versalles", "Villa Crespo", "Villa del Parque", "Villa Devoto", "Villa General Mitre",
+                "Villa Lugano", "Villa Luro", "Villa Ortúzar", "Villa Pueyrredón", "Villa Real", "Villa Riachuelo",
+                "Villa Santa Rita", "Villa Soldati", "Villa Urquiza"
+            ],
+            "Buenos Aires": [
+                "Almirante Brown", "Avellaneda", "Berazategui", "Berisso", "Brandsen", "Campana", "Cañuelas",
+                "Ensenada", "Escobar", "Esteban Echeverría", "Exaltación de Luján", "Ezeiza", "Florencio Varela",
+                "General Las Heras", "General Rodríguez", "General San Martín", "Hurlingham", "Ituzaingó",
+                "José C. Paz", "La Matanza", "La Plata", "Lanús", "Lomas de Zamora", "Luján", "Malvinas Argentinas",
+                "Marcos Paz", "Merlo", "Moreno", "Morón", "Quilmes", "Pilar", "Presidente Perón", "San Fernando",
+                "San Isidro", "San Miguel", "San Vicente", "Tigre", "Tres de Febrero", "Vicente López", "Zárate"
+            ],
+            "Córdoba": ["Córdoba", "Río Cuarto", "Villa María", "Villa Carlos Paz", "San Francisco", "Bell Ville", "Jesús María", "Marcos Juárez"],
+            "Santa Fe": ["Santa Fe", "Rosario", "Rafaela", "Venado Tuerto", "Reconquista", "Sunchales", "Esperanza", "Las Parejas"],
+            "Mendoza": ["Mendoza", "San Rafael", "Godoy Cruz", "Luján de Cuyo", "Rivadavia", "Maipú"],
+            "Tucumán": ["San Miguel de Tucumán", "Yerba Buena", "Tafí Viejo", "Monteros", "Aguilares"],
+            "Salta": ["Salta", "San Salvador de Jujuy", "Orán", "Metán", "Tartagal", "General Güemes"],
+            "Entre Ríos": ["Paraná", "Concordia", "Gualeguaychú", "Villaguay", "Federación", "Nogoyá"],
+            "Misiones": ["Posadas", "Puerto Iguazú", "Eldorado", "Oberá", "Apóstoles", "Leandro N. Alem"],
+            "Chaco": ["Resistencia", "Barranqueras", "Fontana", "Puerto Vilelas", "Basail", "Charata"],
+            "Corrientes": ["Corrientes", "Mercedes", "Goya", "Ituzaingó", "Curuzú Cuatiá", "Santo Tomé"],
+            "San Luis": ["San Luis", "Villa Mercedes", "La Punta", "Juana Koslay", "Quines", "Concarán"],
+            "San Juan": ["San Juan", "Rivadavia", "Santa Lucía", "Pocito", "Rawson", "Ullum"],
+            "La Rioja": ["La Rioja", "Chilecito", "Aimogasta", "Famatina", "Villa Unión", "Aminga"],
+            "Catamarca": ["San Fernando del Valle de Catamarca", "Andalgalá", "Tinogasta", "Belén", "Santa María"],
+            "Jujuy": ["San Salvador de Jujuy", "Palpalá", "San Pedro", "Perico", "Libertador General San Martín"],
+            "Formosa": ["Formosa", "Clorinda", "Herradura", "Pirané", "Laguna Yema", "Ibarreta"],
+            "Neuquén": ["Neuquén", "Plottier", "Zapala", "Cutral Có", "Plottier", "Villa La Angostura"],
+            "Río Negro": ["Viedma", "Cipolletti", "General Roca", "Bariloche", "San Carlos de Bariloche", "El Bolsón"],
+            "Chubut": ["Rawson", "Trelew", "Comodoro Rivadavia", "Esquel", "Puerto Madryn", "Dolavon"],
+            "Santa Cruz": ["Río Gallegos", "Puerto Deseado", "Caleta Olivia", "Pico Truncado", "Perito Moreno"],
+            "Tierra del Fuego": ["Ushuaia", "Río Grande", "Tolhuin", "Puerto Almanza", "Gobernador Gregores"]
+        };
+
+        // Llenar ciudades según provincia
+        document.getElementById('province').addEventListener('change', (e) => {
+            const citySelect = document.getElementById('city');
+            citySelect.innerHTML = '<option value="">Seleccionar ciudad</option>';
+            const selectedProvince = e.target.value;
+
+            if (selectedProvince && provinces[selectedProvince]) {
+                provinces[selectedProvince].forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            } else {
+                citySelect.innerHTML = '<option value="">Primero seleccioná una provincia</option>';
+            }
+        });
 
         // === CONTACT PAGE ===
         const contactPage = document.querySelector('.contact-page');
@@ -3028,17 +3287,85 @@
 
         function validateStep2() {
             let valid = true;
-            const fields = ['name', 'email', 'phone', 'address', 'city', 'zip'];
-            fields.forEach(field => {
-                const input = document.getElementById(field);
-                const error = document.getElementById(`${field}-error`);
-                if (!input.value.trim()) {
-                    error.textContent = 'Este campo es obligatorio';
-                    valid = false;
-                } else {
-                    error.textContent = '';
-                }
-            });
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const phone = document.getElementById('phone');
+            const address = document.getElementById('address');
+            const province = document.getElementById('province');
+            const city = document.getElementById('city');
+            const zip = document.getElementById('zip');
+
+            const nameError = document.getElementById('name-error');
+            const emailError = document.getElementById('email-error');
+            const phoneError = document.getElementById('phone-error');
+            const addressError = document.getElementById('address-error');
+            const provinceError = document.getElementById('province-error');
+            const cityError = document.getElementById('city-error');
+            const zipError = document.getElementById('zip-error');
+
+            // Validar nombre
+            if (!name.value.trim()) {
+                nameError.textContent = 'Este campo es obligatorio';
+                valid = false;
+            } else {
+                nameError.textContent = '';
+            }
+
+            // Validar email
+            if (!email.value.trim()) {
+                emailError.textContent = 'Este campo es obligatorio';
+                valid = false;
+            } else if (!/\S+@\S+\.\S+/.test(email.value)) {
+                emailError.textContent = 'El email no es válido';
+                valid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            // Validar teléfono (solo números)
+            const phoneValue = phone.value.trim();
+            if (!phoneValue) {
+                phoneError.textContent = 'Este campo es obligatorio';
+                valid = false;
+            } else if (!/^\d{8,15}$/.test(phoneValue)) {
+                phoneError.textContent = 'Solo números, entre 8 y 15 dígitos';
+                valid = false;
+            } else {
+                phoneError.textContent = '';
+            }
+
+            // Validar dirección
+            if (!address.value.trim()) {
+                addressError.textContent = 'Este campo es obligatorio';
+                valid = false;
+            } else {
+                addressError.textContent = '';
+            }
+
+            // Validar provincia
+            if (!province.value) {
+                provinceError.textContent = 'Debe seleccionar una provincia';
+                valid = false;
+            } else {
+                provinceError.textContent = '';
+            }
+
+            // Validar ciudad
+            if (!city.value) {
+                cityError.textContent = 'Debe seleccionar una ciudad';
+                valid = false;
+            } else {
+                cityError.textContent = '';
+            }
+
+            // Validar código postal
+            if (!zip.value.trim()) {
+                zipError.textContent = 'Este campo es obligatorio';
+                valid = false;
+            } else {
+                zipError.textContent = '';
+            }
+
             return valid;
         }
 
@@ -3099,10 +3426,11 @@
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const address = document.getElementById('address').value.trim();
-            const city = document.getElementById('city').value.trim();
+            const province = document.getElementById('province').value;
+            const city = document.getElementById('city').value;
             const zip = document.getElementById('zip').value.trim();
 
-            if (!name || !email || !phone || !address || !city || !zip) {
+            if (!name || !email || !phone || !address || !province || !city || !zip) {
                 alert("Por favor, completá todos los campos.");
                 return;
             }
@@ -3122,6 +3450,7 @@
                 email: email,
                 phone: phone,
                 address: address,
+                province: province,
                 city: city,
                 zip: zip,
                 products: productsList,
@@ -3175,12 +3504,17 @@
         ratingStars.forEach(star => {
             star.addEventListener('click', () => {
                 const value = star.getAttribute('data-value');
+                
+                // Limpiar todas
+                ratingStars.forEach(s => s.classList.remove('selected'));
+                
+                // Marcar desde la izquierda hasta el valor elegido
                 ratingStars.forEach(s => {
-                    s.classList.remove('selected');
                     if (s.getAttribute('data-value') <= value) {
                         s.classList.add('selected');
                     }
                 });
+                
                 ratingText.textContent = `Calificaste con ${value} estrellas. ¡Gracias!`;
             });
         });
@@ -3192,6 +3526,13 @@
             // Resetear calificación
             ratingStars.forEach(s => s.classList.remove('selected'));
             ratingText.textContent = 'Seleccioná una calificación';
+        });
+
+        // Botón "Ver más productos"
+        document.querySelector('.view-products-btn').addEventListener('click', () => {
+            cart.classList.remove('open');
+            cartOverlay.classList.remove('active');
+            document.getElementById('productos').scrollIntoView({ behavior: 'smooth' });
         });
 
         // Efecto para el botón "Ir a Contacto" en el footer
